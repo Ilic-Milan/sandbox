@@ -16,12 +16,18 @@ public class LandingPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    @Override
+    public boolean isAt() {
+        return waitForIsDisplayed(this.loginBtn);
+    }
+
     public void goTo() {
+        LOGGER.info("User is opening landing page - " + config.getSandboxUrl());
         driver.get(config.getSandboxUrl());
     }
 
     public void openLoginForm() {
-        WebElement login = wait.until(ExpectedConditions.visibilityOf(loginBtn));
+        WebElement login = waitForIsDisplayedAndGetElement(this.loginBtn);
         login.click();
     }
 
