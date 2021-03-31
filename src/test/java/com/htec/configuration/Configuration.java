@@ -3,6 +3,7 @@ package com.htec.configuration;
 import lombok.Getter;
 import lombok.Setter;
 import org.jeasy.props.annotations.Property;
+import org.jeasy.props.annotations.SystemProperty;
 
 import static org.jeasy.props.PropertiesInjectorBuilder.aNewPropertiesInjector;
 
@@ -15,6 +16,9 @@ public class Configuration {
     public Configuration() {
         aNewPropertiesInjector().injectProperties(this);
     }
+
+    @SystemProperty(value = "browser", defaultValue = "chrome")
+    private String browserName; // BrowserType: chrome, firefox
 
     @Property(source = CONFIGURATION_FILE_PATH, key = "implicitWaitTime")
     private String implicitWaitTime;

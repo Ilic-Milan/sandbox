@@ -24,9 +24,9 @@ public class LoginPage extends BasePage {
         return waitForIsDisplayed(this.emailInput);
     }
 
-    public void login() {
-        populateField(waitForIsDisplayedAndGetElement(emailInput), config.getSandboxUsername());
-        populateField(waitForIsDisplayedAndGetElement(passwordInput), config.getSandboxPassword());
+    public void login(String username, String password) {
+        populateField(waitForIsDisplayedAndGetElement(emailInput), username);
+        populateField(waitForIsDisplayedAndGetElement(passwordInput), password);
         waitForIsDisplayedAndGetElement(submitBtn).click();
     }
 
