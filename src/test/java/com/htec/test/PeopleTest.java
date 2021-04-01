@@ -12,6 +12,10 @@ public class PeopleTest extends BaseTest {
     private LoginPage loginPage;
     private HomePage homePage;
     private PlaygroundPage playgroundPage;
+    private SenioritiesComponent senioritiesComponent;
+    private NewSeniorityPage newSeniorityPage;
+    private TehnologiesComponent tehnologiesComponent;
+    private NewTehnologyPage newTehnologyPage;
     private PeopleComponent peopleComponent;
     private NewPersonPage newPersonPage;
 
@@ -35,11 +39,26 @@ public class PeopleTest extends BaseTest {
     }
 
     @Test
-    public void createPeopleTest() {
+    public void createPeopleTest() throws InterruptedException {
         playgroundPage = homePage.openPlayground();
         assertTrue(playgroundPage.isAt(), "User is not on Playground page!");
 
+        tehnologiesComponent = playgroundPage.getTehnologiesComponent();
+        assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
+        if(!tehnologiesComponent.isPresentTehnology()) {
+            newTehnologyPage = tehnologiesComponent.goToNewTehnologyForm();
+            newTehnologyPage.createTehnology();
+        }
+
+        senioritiesComponent = playgroundPage.getSenioritiesComponent();
+        assertTrue(senioritiesComponent.isAt(), "User is not on Seniorities component!");
+        if(!senioritiesComponent.isPresentSeniority()) {
+            newSeniorityPage = senioritiesComponent.goToNewSeniorityForm();
+            newSeniorityPage.createSeniority();
+        }
+
         peopleComponent = playgroundPage.getPeopleComponent();
+        assertTrue(peopleComponent.isAt(), "User is not on People component!");
         newPersonPage = peopleComponent.goToNewPersonForm();
         newPersonPage.createPeople();
     }

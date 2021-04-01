@@ -13,4 +13,8 @@ public class StringGenerator {
     public static String getRandomSeniorityTitle() {
         return "Naziv_" + random.nextInt(9999);
     }
+
+    public static String getRandomTehnologyTitle() {
+        return "Naziv_" + random.nextInt(9999);
+    }
 }

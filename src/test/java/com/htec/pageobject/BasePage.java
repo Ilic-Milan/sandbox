@@ -43,6 +43,16 @@ public abstract class BasePage {
         return true;
     }
 
+    protected boolean waitForIsNotDisplayed(WebElement element) {
+        try {
+            this.wait.until(ExpectedConditions.invisibilityOf(element));
+        } catch (TimeoutException exception) {
+            LOGGER.warn("Condition is not met!"  + "\n" + exception);
+            return false;
+        }
+        return true;
+    }
+
     protected WebElement waitForIsDisplayedAndGetElement(WebElement element) {
         return waitForIsDisplayed(element) ? element : null;
     }

@@ -12,10 +12,12 @@ public class PlaygroundPage extends BasePage{
 
     @FindBy(css = ".page-title")
     private WebElement playgroundTitle;
-    @FindBy(css = "a[href='/people']")
+    @FindBy(xpath = "//div[contains(@class, 'card-tabs')]//div[contains(text(), 'PEOPLE')]")
     private WebElement people;
-    @FindBy(css = "a[href='/seniorities']")
+    @FindBy(xpath = "//div[contains(@class, 'card-tabs')]//div[contains(text(), 'SENIORITIES')]")
     private WebElement seniorities;
+    @FindBy(xpath = "//div[contains(@class, 'card-tabs')]//div[contains(text(), 'TECHNOLOGIES')]")
+    private WebElement tehnologies;
 
     public PlaygroundPage(WebDriver driver) {
         super(driver);
@@ -30,6 +32,11 @@ public class PlaygroundPage extends BasePage{
     public SenioritiesComponent getSenioritiesComponent() {
         waitForIsDisplayedAndGetElement(seniorities).click();
         return new SenioritiesComponent(driver);
+    }
+
+    public TehnologiesComponent getTehnologiesComponent() {
+        waitForIsDisplayedAndGetElement(tehnologies).click();
+        return new TehnologiesComponent(driver);
     }
 
     @Override

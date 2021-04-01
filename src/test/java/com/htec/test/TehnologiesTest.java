@@ -7,14 +7,14 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;
 
-public class SenioritiesTest extends BaseTest {
+public class TehnologiesTest extends BaseTest {
 
     private LandingPage landingPage;
     private LoginPage loginPage;
     private HomePage homePage;
     private PlaygroundPage playgroundPage;
-    private SenioritiesComponent senioritiesComponent;
-    private NewSeniorityPage newSeniorityPage;
+    private TehnologiesComponent tehnologiesComponent;
+    private NewTehnologyPage newTehnologyPage;
 
     @BeforeClass
     public void setupPages() {
@@ -36,12 +36,12 @@ public class SenioritiesTest extends BaseTest {
     }
 
     @Test
-    public void createSeniorityTest() throws InterruptedException {
+    public void createTehnologiesTest() {
         playgroundPage = homePage.openPlayground();
         assertTrue(playgroundPage.isAt(), "User is not on Playground page!");
 
-        senioritiesComponent = playgroundPage.getSenioritiesComponent();
-        newSeniorityPage = senioritiesComponent.goToNewSeniorityForm();
-        newSeniorityPage.createSeniority();
+        tehnologiesComponent = playgroundPage.getTehnologiesComponent();
+        newTehnologyPage = tehnologiesComponent.goToNewTehnologyForm();
+        newTehnologyPage.createTehnology();
     }
 }

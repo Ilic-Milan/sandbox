@@ -5,13 +5,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class SenioritiesComponent extends BasePage {
 
     @FindBy(xpath = "//b[contains(text(), 'Seniorities')]")
     private WebElement senioritiesTitle;
-    @FindBy(xpath = "a[href='/create-seniority']")
+    @FindBy(css = "a[href='/create-seniority']")
     private WebElement createSeniority;
+    @FindBy(css = ".list-group-item.list-group-item-action")
+    private List<WebElement> seniorities;
 
+    private PlaygroundPage playgroundPage;
+    private NewSeniorityPage newSeniorityPage;
 
     public SenioritiesComponent(WebDriver driver) {
         super(driver);
@@ -26,5 +32,9 @@ public class SenioritiesComponent extends BasePage {
     public NewSeniorityPage goToNewSeniorityForm() {
         waitForIsDisplayedAndGetElement(createSeniority).click();
         return new NewSeniorityPage(driver);
+    }
+
+    public boolean isPresentSeniority() {
+        return seniorities.size() != 0;
     }
 }
