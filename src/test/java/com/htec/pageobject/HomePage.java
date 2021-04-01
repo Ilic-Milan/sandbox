@@ -9,6 +9,8 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//*[contains(text(), 'Dashboard')]")
     private WebElement dashboard;
+    @FindBy(css = "a[href='/projects'] img[class='card-img-top']")
+    private WebElement playground;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -18,5 +20,10 @@ public class HomePage extends BasePage {
     @Override
     public boolean isAt() {
         return waitForIsDisplayed(this.dashboard);
+    }
+
+    public PlaygroundPage openPlayground() {
+        waitForIsDisplayedAndGetElement(this.playground).click();
+        return new PlaygroundPage(driver);
     }
 }

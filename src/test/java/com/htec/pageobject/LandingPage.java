@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LandingPage extends BasePage {
 
@@ -27,8 +26,7 @@ public class LandingPage extends BasePage {
     }
 
     public void openLoginForm() {
-        WebElement login = waitForIsDisplayedAndGetElement(this.loginBtn);
-        login.click();
+        waitForIsDisplayedAndGetElement(this.loginBtn).click();
     }
 
 }
