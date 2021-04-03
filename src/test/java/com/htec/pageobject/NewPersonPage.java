@@ -1,6 +1,5 @@
 package com.htec.pageobject;
 
-import com.htec.util.StringGenerator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,7 +36,6 @@ public class NewPersonPage extends BasePage {
     public void chooseTechnology() {
         waitForIsDisplayedAndGetElement(selectTehnologies).click();
         waitForIsDisplayed(dropdownSelect);
-        waitForIsNotDisplayed(selectedTechnology);
         if(dropdownList.size() > 0) {
             waitForIsDisplayedAndGetElement(dropdownList.get(new Random().nextInt(dropdownList.size()))).click();
         }else{
@@ -46,7 +44,6 @@ public class NewPersonPage extends BasePage {
         waitForIsDisplayed(selectedTechnology);
         waitForIsDisplayed(dropdownSelect);
         waitForIsDisplayedAndGetElement(fullName).click();
-        waitForIsNotDisplayed(dropdownSelect);
     }
 
     public void chooseSeniority() {
@@ -64,8 +61,8 @@ public class NewPersonPage extends BasePage {
         return waitForIsDisplayed(newPersonTitle);
     }
 
-    public void createPerson() {
-        populateField(waitForIsDisplayedAndGetElement(fullName), StringGenerator.getRandomFullName());
+    public void createPerson(String fullname) {
+        populateField(waitForIsDisplayedAndGetElement(fullName), fullname);
         chooseTechnology();
         chooseSeniority();
         waitForIsDisplayedAndGetElement(submitBtn).click();

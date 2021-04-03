@@ -31,7 +31,7 @@ public class TehnologiesComponent extends BasePage {
         return new NewTehnologyPage(driver);
     }
 
-    public boolean isPresentTehnology() {
+    public boolean isPresentAnyTehnology() {
         return tehnologies.size() !=0;
     }
 

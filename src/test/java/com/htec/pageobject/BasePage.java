@@ -44,8 +44,9 @@ public abstract class BasePage {
     }
 
     protected boolean waitForIsNotDisplayed(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         try {
-            this.wait.until(ExpectedConditions.invisibilityOf(element));
+            wait.until(ExpectedConditions.invisibilityOf(element));
         } catch (TimeoutException exception) {
             LOGGER.warn("Condition is not met!"  + "\n" + exception);
             return false;

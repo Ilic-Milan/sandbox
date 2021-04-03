@@ -1,9 +1,12 @@
 package com.htec.test;
 
-import com.htec.pageobject.HomePage;
+import com.htec.pageobject.DashboardPage;
 import com.htec.pageobject.LandingPage;
 import com.htec.pageobject.LoginPage;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -12,13 +15,13 @@ public class LoginTest extends BaseTest {
 
     private LandingPage landingPage;
     private LoginPage loginPage;
-    private HomePage homePage;
+    private DashboardPage dashboardPage;
 
     @BeforeClass
     public void setupPages() {
         landingPage = new LandingPage(driver);
         loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
 
     @BeforeMethod
@@ -33,13 +36,13 @@ public class LoginTest extends BaseTest {
     @Test
     public void loginPositiveTest() {
         loginPage.login(config.getSandboxUsername(), config.getSandboxPassword());
-        assertTrue(homePage.isAt(), "User is not Logged in!");
+        assertTrue(dashboardPage.isAt(), "User is not Logged in!");
     }
 
     @Test(dataProvider = "getData")
     public void loginNegativeTest(String username, String password) {
         loginPage.login(username, password);
-        assertFalse(homePage.isAt(), "User should not be Logged in!");
+        assertFalse(dashboardPage.isAt(), "User should not be Logged in!");
     }
 
     @DataProvider

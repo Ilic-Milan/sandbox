@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LandingPage extends BasePage {
 
-    @FindBy(xpath = "//a[@href='/login' and (contains(@class, 'btn-lg'))]")
+    @FindBy(css = ".btn-secondary")
     private WebElement loginBtn;
 
     public LandingPage(WebDriver driver) {

@@ -1,18 +1,16 @@
 package com.htec.test;
 
 import com.htec.pageobject.*;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import com.htec.util.StringGenerator;
+import org.testng.annotations.*;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class PeopleTest extends BaseTest {
 
     private LandingPage landingPage;
     private LoginPage loginPage;
-    private HomePage homePage;
+    private DashboardPage dashboardPage;
     private PlaygroundPage playgroundPage;
     private SenioritiesComponent senioritiesComponent;
     private NewSeniorityPage newSeniorityPage;
@@ -25,7 +23,7 @@ public class PeopleTest extends BaseTest {
     public void setupPages() {
         landingPage = new LandingPage(driver);
         loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
+        dashboardPage = new DashboardPage(driver);
     }
 
     @BeforeMethod
@@ -37,18 +35,25 @@ public class PeopleTest extends BaseTest {
         assertTrue(loginPage.isAt(), "User is not on Login page!");
 
         loginPage.login(config.getSandboxUsername(), config.getSandboxPassword());
-        assertTrue(homePage.isAt(), "User is not Logged in!");
+        assertTrue(dashboardPage.isAt(), "User is not Logged in!");
+
+        playgroundPage = dashboardPage.openPlayground();
+        assertTrue(playgroundPage.isAt(), "User is not on Playground page!");
     }
 
-    @Test
-    public void createPeopleTest() throws InterruptedException {
-        playgroundPage = homePage.openPlayground();
-        assertTrue(playgroundPage.isAt(), "User is not on Playground page!");
+    @AfterMethod
+    public void logoutUser() {
+        dashboardPage.logout();
+        assertTrue(landingPage.isAt(), "User is not on Landing page!");
+    }
+
+    @Test(dataProvider = "getData", priority = 1)
+    public void createPeopleTest(String fullname) throws InterruptedException {
 
         //Creating Technology if doesn't exist
         tehnologiesComponent = playgroundPage.getTehnologiesComponent();
         assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
-        if(!tehnologiesComponent.isPresentTehnology()) {
+        if(!tehnologiesComponent.isPresentAnyTehnology()) {
             newTehnologyPage = tehnologiesComponent.goToNewTehnologyForm();
             String tehnology = newTehnologyPage.createTehnology();
             assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
@@ -69,6 +74,31 @@ public class PeopleTest extends BaseTest {
         peopleComponent = playgroundPage.getPeopleComponent();
         assertTrue(peopleComponent.isAt(), "User is not on People component!");
         newPersonPage = peopleComponent.goToNewPersonForm();
-        newPersonPage.createPerson();
+        newPersonPage.createPerson(fullname);
+    }
+
+    @DataProvider
+    public Object[][] getData() {
+        return new Object[][]{
+                {StringGenerator.getRandomFullName()},
+                {StringGenerator.getRandomFullName()},
+                {StringGenerator.getRandomFullName()}
+        };
+    }
+
+    @Test(priority = 2)
+    public void editPeopleTest() {
+
+        peopleComponent = playgroundPage.getPeopleComponent();
+        assertTrue(peopleComponent.isAt(), "User is not on People component!");
+        assertTrue(peopleComponent.switchNameAndLastName(), "People list is not updated correctly!");
+    }
+
+    @Test(priority = 3)
+    public void deletePeopleTest() {
+
+        peopleComponent = playgroundPage.getPeopleComponent();
+        assertTrue(peopleComponent.isAt(), "User is not on People component!");
+        assertTrue(peopleComponent.deletePeople(), "People list is not deleted correctly!");
     }
 }
