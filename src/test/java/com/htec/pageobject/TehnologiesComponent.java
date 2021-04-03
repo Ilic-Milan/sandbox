@@ -13,7 +13,7 @@ public class TehnologiesComponent extends BasePage {
     private WebElement tehnologiesTitle;
     @FindBy(css = "a[href='/create-technology']")
     private WebElement createTehnology;
-    @FindBy(css = ".list-group-item.list-group-item-action")
+    @FindBy(css = ".list-group-item")
     private List<WebElement> tehnologies;
 
     public TehnologiesComponent (WebDriver driver) {
@@ -33,6 +33,14 @@ public class TehnologiesComponent extends BasePage {
 
     public boolean isPresentTehnology() {
         return tehnologies.size() !=0;
+    }
+
+    public boolean isPresentTechnology(String technology) {
+        for (int i = 0; i < tehnologies.size(); i++) {
+            if(tehnologies.get(i).getText().equals(technology))
+                return true;
+        }
+        return false;
     }
 
 }

@@ -4,6 +4,8 @@ import com.htec.pageobject.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class PeopleTest extends BaseTest {
@@ -43,23 +45,30 @@ public class PeopleTest extends BaseTest {
         playgroundPage = homePage.openPlayground();
         assertTrue(playgroundPage.isAt(), "User is not on Playground page!");
 
+        //Creating Technology if doesn't exist
         tehnologiesComponent = playgroundPage.getTehnologiesComponent();
         assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
         if(!tehnologiesComponent.isPresentTehnology()) {
             newTehnologyPage = tehnologiesComponent.goToNewTehnologyForm();
-            newTehnologyPage.createTehnology();
+            String tehnology = newTehnologyPage.createTehnology();
+            assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
+            assertTrue(tehnologiesComponent.isPresentTechnology(tehnology), "Technology " + tehnology + " is not added to the list.");
         }
 
+        //Creating Seniority if doesn't exist
         senioritiesComponent = playgroundPage.getSenioritiesComponent();
         assertTrue(senioritiesComponent.isAt(), "User is not on Seniorities component!");
-        if(!senioritiesComponent.isPresentSeniority()) {
+        if(!senioritiesComponent.isPresentAnySeniority()) {
             newSeniorityPage = senioritiesComponent.goToNewSeniorityForm();
-            newSeniorityPage.createSeniority();
+            String seniority = newSeniorityPage.createSeniority();
+            assertTrue(senioritiesComponent.isAt(), "User is not on Seniorities component!");
+            assertTrue(senioritiesComponent.isPresentSeniority(seniority), "Seniority " + seniority + " is not added to the list.");
         }
 
+        //Creating Person include technology and seniority
         peopleComponent = playgroundPage.getPeopleComponent();
         assertTrue(peopleComponent.isAt(), "User is not on People component!");
         newPersonPage = peopleComponent.goToNewPersonForm();
-        newPersonPage.createPeople();
+        newPersonPage.createPerson();
     }
 }

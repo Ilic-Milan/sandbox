@@ -20,9 +20,11 @@ public class NewPersonPage extends BasePage {
     @FindBy(css = ".react-dropdown-select-dropdown")
     private WebElement dropdownSelect;
     @FindBy(css = "span[aria-label]")
-    private List<WebElement> technologies;
+    private List<WebElement> dropdownList;
     @FindBy(css = "span[role='listitem']")
     private WebElement selectedTechnology;
+    @FindBy(css = "input[placeholder = 'Select seniority']")
+    private WebElement selectSeniority;
     @FindBy(css = "button[type = 'submit']")
     private WebElement submitBtn;
 
@@ -32,23 +34,40 @@ public class NewPersonPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @Override
-    public boolean isAt() {
-        return waitForIsDisplayed(newPersonTitle);
-    }
-
-    public void createPeople() {
-        populateField(waitForIsDisplayedAndGetElement(fullName), StringGenerator.getRandomFullName());
+    public void chooseTechnology() {
         waitForIsDisplayedAndGetElement(selectTehnologies).click();
         waitForIsDisplayed(dropdownSelect);
         waitForIsNotDisplayed(selectedTechnology);
-        if(technologies.size() > 0) {
-            waitForIsDisplayedAndGetElement(technologies.get(new Random().nextInt(technologies.size()))).click();
+        if(dropdownList.size() > 0) {
+            waitForIsDisplayedAndGetElement(dropdownList.get(new Random().nextInt(dropdownList.size()))).click();
         }else{
             LOGGER.info("There is no available technologies!");
         }
         waitForIsDisplayed(selectedTechnology);
         waitForIsDisplayed(dropdownSelect);
+        waitForIsDisplayedAndGetElement(fullName).click();
+        waitForIsNotDisplayed(dropdownSelect);
+    }
+
+    public void chooseSeniority() {
+        waitForIsDisplayedAndGetElement(selectSeniority).click();
+        waitForIsDisplayed(dropdownSelect);
+        if(dropdownList.size() > 0) {
+            waitForIsDisplayedAndGetElement(dropdownList.get(new Random().nextInt(dropdownList.size()))).click();
+        }else{
+            LOGGER.info("There is no available seniorities!");
+        }
+    }
+
+    @Override
+    public boolean isAt() {
+        return waitForIsDisplayed(newPersonTitle);
+    }
+
+    public void createPerson() {
+        populateField(waitForIsDisplayedAndGetElement(fullName), StringGenerator.getRandomFullName());
+        chooseTechnology();
+        chooseSeniority();
         waitForIsDisplayedAndGetElement(submitBtn).click();
     }
 }

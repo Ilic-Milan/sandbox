@@ -25,8 +25,10 @@ public class NewTehnologyPage extends BasePage {
         return waitForIsDisplayed(newTehnologyTitle);
     }
 
-    public void createTehnology() {
-        populateField(waitForIsDisplayedAndGetElement(tehnologyTitle), StringGenerator.getRandomTehnologyTitle());
+    public String createTehnology() {
+        String title = StringGenerator.getRandomTehnologyTitle();
+        populateField(waitForIsDisplayedAndGetElement(tehnologyTitle), title);
         waitForIsDisplayedAndGetElement(submitBtn).click();
+        return title;
     }
 }

@@ -34,7 +34,15 @@ public class SenioritiesComponent extends BasePage {
         return new NewSeniorityPage(driver);
     }
 
-    public boolean isPresentSeniority() {
+    public boolean isPresentAnySeniority() {
         return seniorities.size() != 0;
+    }
+
+    public boolean isPresentSeniority(String seniority) {
+        for (int i = 0; i < seniorities.size(); i++) {
+            if(seniorities.get(i).getText().equals(seniority))
+                return true;
+        }
+        return false;
     }
 }

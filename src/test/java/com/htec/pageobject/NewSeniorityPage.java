@@ -25,8 +25,10 @@ public class NewSeniorityPage extends BasePage {
         return waitForIsDisplayed(newPersonTitle);
     }
 
-    public void createSeniority() {
-        populateField(waitForIsDisplayedAndGetElement(seniorityTitle), StringGenerator.getRandomSeniorityTitle());
+    public String createSeniority() {
+        String title = StringGenerator.getRandomSeniorityTitle();
+        populateField(waitForIsDisplayedAndGetElement(seniorityTitle), title);
         waitForIsDisplayedAndGetElement(submitBtn).click();
+        return title;
     }
 }
