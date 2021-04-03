@@ -13,6 +13,8 @@
         <maven.compiler.target>11</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
         <selenium.version>3.141.59</selenium.version>
+        <lombok.version>1.18.18</lombok.version>
+        <log4j.version>1.2.17</log4j.version>
         <maven-compiler-plugin.verion>3.8.1</maven-compiler-plugin.verion>
     </properties>
 
@@ -39,10 +41,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
+            <version>${lombok.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
