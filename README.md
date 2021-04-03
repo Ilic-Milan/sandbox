@@ -18,7 +18,9 @@ Run tests locally with command in firefox:
 
 ``mvn test -Dbrowser=firefox -Djava.util.logging.config.file=logging.properties``
 
-Reports are generated within ``target/surefire-reports/index.html``
+TestNG Reports are generated within ``target/surefire-reports/index.html``
+
+Extend TestNG Reports are generated within ``test-output/Extent.html``
 
 Logs are generated within ``.logs/sandbox.log``
 

@@ -2,6 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Test Suite" data-provider-thread-count="1">
+    <listeners>
+        <listener class-name="com.htec.listener.ExtentReportListener"/>
+    </listeners>
     <test name="Test Suite">
         <classes>
             <class name="com.htec.test.LoginTest"/>
