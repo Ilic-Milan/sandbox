@@ -12,15 +12,15 @@ Navigate to the root of project:
 
 Run tests locally with command in chrome:
 
-``mvn test -Djava.util.logging.config.file=logging.properties``
+``mvn clean test -Djava.util.logging.config.file=logging.properties``
 
 Run tests locally with command in firefox:
 
-``mvn test -Dbrowser=firefox -Djava.util.logging.config.file=logging.properties``
+``mvn clean test -Dbrowser=firefox -Djava.util.logging.config.file=logging.properties``
 
 TestNG Reports are generated within ``target/surefire-reports/index.html``
 
-Extend TestNG Reports are generated within ``test-output/Extent.html``
+Extend TestNG Reports are generated within ``target/surefire-reports/Extent.html``
 
 Logs are generated within ``.logs/sandbox.log``
 

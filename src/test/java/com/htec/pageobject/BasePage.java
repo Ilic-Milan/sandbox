@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public abstract class BasePage {
 
     protected WebDriver driver;
@@ -23,6 +25,7 @@ public abstract class BasePage {
     public abstract boolean isAt();
 
     protected boolean waitForIsDisplayed(WebElement element, int timeout) {
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         final WebDriverWait wait = new WebDriverWait(this.driver, timeout);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
@@ -30,20 +33,25 @@ public abstract class BasePage {
             LOGGER.warn("Condition is not met!" + "\n" + exception);
             return false;
         }
+        driver.manage().timeouts().implicitlyWait(Long.parseLong(config.getImplicitWaitTime()), TimeUnit.SECONDS);
         return true;
     }
 
     protected boolean waitForIsDisplayed(WebElement element) {
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         try {
-            this.wait.until(ExpectedConditions.visibilityOf(element));
+            wait.until(ExpectedConditions.visibilityOf(element));
         } catch (TimeoutException exception) {
             LOGGER.warn("Condition is not met!"  + "\n" + exception);
             return false;
         }
+        driver.manage().timeouts().implicitlyWait(Long.parseLong(config.getImplicitWaitTime()), TimeUnit.SECONDS);
         return true;
     }
 
     protected boolean waitForIsNotDisplayed(WebElement element) {
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         try {
             wait.until(ExpectedConditions.invisibilityOf(element));
@@ -51,6 +59,7 @@ public abstract class BasePage {
             LOGGER.warn("Condition is not met!"  + "\n" + exception);
             return false;
         }
+        driver.manage().timeouts().implicitlyWait(Long.parseLong(config.getImplicitWaitTime()), TimeUnit.SECONDS);
         return true;
     }
 
