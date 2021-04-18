@@ -17,7 +17,7 @@ public abstract class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Long.parseLong(config.getImplicitWaitTime()));
+        this.wait = new WebDriverWait(this.driver, Long.parseLong(config.getDefaultWaitTime()));
     }
 
     public abstract boolean isAt();
@@ -56,6 +56,14 @@ public abstract class BasePage {
 
     protected WebElement waitForIsDisplayedAndGetElement(WebElement element) {
         return waitForIsDisplayed(element) ? element : null;
+    }
+
+    protected void click(WebElement element) {
+        try {
+            waitForIsDisplayedAndGetElement(element).click();
+        }catch (Exception exception) {
+            LOGGER.warn("Element is not clickable: " + element  + "\n" + exception);
+        }
     }
 
     protected void populateField(WebElement element, String text) {

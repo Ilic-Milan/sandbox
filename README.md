@@ -18,6 +18,10 @@ Run tests locally with command in firefox:
 
 ``mvn test -Dbrowser=firefox -Djava.util.logging.config.file=logging.properties``
 
+Run tests locally testng.xml file with command:
+
+``mvn clean test -DsuiteFile=testng.xml -Djava.util.logging.config.file=logging.properties``
+
 TestNG Reports are generated within ``target/surefire-reports/index.html``
 
 Extend TestNG Reports are generated within ``test-output/Extent.html``

@@ -53,28 +53,20 @@ public class PeopleTest extends BaseTest {
         //Creating Technology if doesn't exist
         tehnologiesComponent = playgroundPage.getTehnologiesComponent();
         assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
-        if(!tehnologiesComponent.isPresentAnyTehnology()) {
-            newTehnologyPage = tehnologiesComponent.goToNewTehnologyForm();
-            String tehnology = newTehnologyPage.createTehnology();
-            assertTrue(tehnologiesComponent.isAt(), "User is not on Tehnologies component!");
-            assertTrue(tehnologiesComponent.isPresentTechnology(tehnology), "Technology " + tehnology + " is not added to the list.");
-        }
+        tehnologiesComponent.createTechnologyIfNoAny();
 
         //Creating Seniority if doesn't exist
         senioritiesComponent = playgroundPage.getSenioritiesComponent();
         assertTrue(senioritiesComponent.isAt(), "User is not on Seniorities component!");
-        if(!senioritiesComponent.isPresentAnySeniority()) {
-            newSeniorityPage = senioritiesComponent.goToNewSeniorityForm();
-            String seniority = newSeniorityPage.createSeniority();
-            assertTrue(senioritiesComponent.isAt(), "User is not on Seniorities component!");
-            assertTrue(senioritiesComponent.isPresentSeniority(seniority), "Seniority " + seniority + " is not added to the list.");
-        }
+        senioritiesComponent.createSeniorityIfNoAny();
 
         //Creating Person include technology and seniority
         peopleComponent = playgroundPage.getPeopleComponent();
         assertTrue(peopleComponent.isAt(), "User is not on People component!");
         newPersonPage = peopleComponent.goToNewPersonForm();
         newPersonPage.createPerson(fullname);
+        assertTrue(peopleComponent.isAt(), "User is not on People component!");
+        assertTrue(peopleComponent.isPresentPerson(fullname), "Person " + fullname + " is not added to the list.");
     }
 
     @DataProvider

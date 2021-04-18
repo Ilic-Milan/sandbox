@@ -20,8 +20,8 @@ public class Configuration {
     @SystemProperty(value = "browser", defaultValue = "chrome")
     private String browserName; // BrowserType: chrome, firefox
 
-    @Property(source = CONFIGURATION_FILE_PATH, key = "implicitWaitTime")
-    private String implicitWaitTime;
+    @Property(source = CONFIGURATION_FILE_PATH, key = "defaultWaitTime")
+    private String defaultWaitTime;
     @Property(source = CONFIGURATION_FILE_PATH, key = "sandbox.url")
     private String sandboxUrl;
     @Property(source = CONFIGURATION_FILE_PATH, key = "sandbox.username")

@@ -25,17 +25,17 @@ public class PlaygroundPage extends BasePage{
     }
 
     public PeopleComponent getPeopleComponent() {
-        waitForIsDisplayedAndGetElement(people).click();
+        click(people);
         return new PeopleComponent(driver);
     }
 
     public SenioritiesComponent getSenioritiesComponent() {
-        waitForIsDisplayedAndGetElement(seniorities).click();
+        click(seniorities);
         return new SenioritiesComponent(driver);
     }
 
     public TehnologiesComponent getTehnologiesComponent() {
-        waitForIsDisplayedAndGetElement(tehnologies).click();
+        click(tehnologies);
         return new TehnologiesComponent(driver);
     }
 

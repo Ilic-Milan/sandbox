@@ -4,8 +4,7 @@ import com.htec.configuration.Configuration;
 import com.htec.driver.DriverFactory;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
 public abstract class BaseTest {
 
@@ -13,13 +12,25 @@ public abstract class BaseTest {
     protected final Configuration config = new Configuration();
     protected static final Logger LOGGER = Logger.getLogger(BaseTest.class);
 
-    @BeforeTest
+    @BeforeMethod
+    public void beforeMethod() {
+        LOGGER.info("=============================== START TEST CASE ===============================");
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        LOGGER.info("=============================== END TEST CASE ===============================");
+    }
+
+    @BeforeClass
     public void setUp() throws Exception {
+        LOGGER.info("=============================== LAUNCHING WEBDRIVER ===============================");
         driver = DriverFactory.setDriver(config.getBrowserName());
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
+        LOGGER.info("=============================== CLOSING WEBDRIVER ===============================");
         driver.quit();
     }
 

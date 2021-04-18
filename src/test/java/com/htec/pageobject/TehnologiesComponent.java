@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+import static org.testng.Assert.assertTrue;
+
 public class TehnologiesComponent extends BasePage {
 
     @FindBy(xpath = "//b[contains(text(), 'Technologies')]")
@@ -27,7 +29,7 @@ public class TehnologiesComponent extends BasePage {
     }
 
     public NewTehnologyPage goToNewTehnologyForm() {
-        waitForIsDisplayedAndGetElement(createTehnology).click();
+        click(createTehnology);
         return new NewTehnologyPage(driver);
     }
 
@@ -43,4 +45,12 @@ public class TehnologiesComponent extends BasePage {
         return false;
     }
 
+    public void createTechnologyIfNoAny() {
+        if(!isPresentAnyTehnology()) {
+            NewTehnologyPage newTehnologyPage = goToNewTehnologyForm();
+            String tehnology = newTehnologyPage.createTehnology();
+            assertTrue(isAt(), "User is not on Tehnologies component!");
+            assertTrue(isPresentTechnology(tehnology), "Technology " + tehnology + " is not added to the list.");
+        }
+    }
 }

@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+import static org.testng.Assert.assertTrue;
+
 public class SenioritiesComponent extends BasePage {
 
     @FindBy(xpath = "//b[contains(text(), 'Seniorities')]")
@@ -44,5 +46,14 @@ public class SenioritiesComponent extends BasePage {
                 return true;
         }
         return false;
+    }
+
+    public void createSeniorityIfNoAny() {
+        if(!isPresentAnySeniority()) {
+            newSeniorityPage = goToNewSeniorityForm();
+            String seniority = newSeniorityPage.createSeniority();
+            assertTrue(isAt(), "User is not on Seniorities component!");
+            assertTrue(isPresentSeniority(seniority), "Seniority " + seniority + " is not added to the list.");
+        }
     }
 }

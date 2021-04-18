@@ -39,7 +39,7 @@ public class NewPersonPage extends BasePage {
         if(dropdownList.size() > 0) {
             waitForIsDisplayedAndGetElement(dropdownList.get(new Random().nextInt(dropdownList.size()))).click();
         }else{
-            LOGGER.info("There is no available technologies!");
+            LOGGER.warn("There is no available technology!");
         }
         waitForIsDisplayed(selectedTechnology);
         waitForIsDisplayed(dropdownSelect);
@@ -52,7 +52,7 @@ public class NewPersonPage extends BasePage {
         if(dropdownList.size() > 0) {
             waitForIsDisplayedAndGetElement(dropdownList.get(new Random().nextInt(dropdownList.size()))).click();
         }else{
-            LOGGER.info("There is no available seniorities!");
+            LOGGER.warn("There is no available seniority!");
         }
     }
 

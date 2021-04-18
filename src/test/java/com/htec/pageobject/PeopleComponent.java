@@ -110,4 +110,11 @@ public class PeopleComponent extends BasePage {
         return true;
     }
 
+    public boolean isPresentPerson(String fullname) {
+        for (int i = 0; i < people.size(); i++) {
+            if(people.get(i).getText().equals(fullname))
+                return true;
+        }
+        return false;
+    }
 }
